@@ -27,3 +27,31 @@ export  async function handleSignupController(req,res){
    }
 
 }
+
+
+
+export async function handleSigninController(req,res){
+    
+    try{
+
+    const {username, password} = req.body
+
+    const user = await User.findOne({username:username});
+    if(!user) {
+        return res.status(401).json({success:false, message: "User not found"})
+    }
+    
+    const result = await bcrypt.compare(password,user.password)
+    if(result){
+        res.status(200).json({success:true, message:"Logged in Successfully", email:user.email })
+    }
+    else{
+        res.status(400).json({success:false, message: "Invalid password"})
+    }
+}
+
+    catch(err){
+        res.status(500).json({message:"Internal server error", success: false})
+    }
+
+}

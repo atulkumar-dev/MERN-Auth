@@ -1,40 +1,51 @@
 import { useState } from "react";
 import Input from "../components/Input"
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 
-export default function Login() {
+export default function Signin() {
 
-  //state to manage error to print in paragraph tag
-  const[error, setError] = useState("")
 
   //state to manage user entered data in an object called "data"
   const[data, setData]= useState({
     username:"",
-    email:"",
     password:"",
-    confirmPassword:""
   })
 
   //function called when user submit form
-  function handleSubmit(event){
+  async function handleSubmit(event){
 
     //prevent default form submission behavior which refreshes the page
     event.preventDefault();
-    
-    //reset error state to clear previous errors when user submits again
-    setError("");
 
-    //check if password is less than 4 characters
-    if(data.password.length<4){
-      setError("Password should be greater than 4 characters")
+    try{
+
+        const response = await fetch("http://localhost:80/signin", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          });
+
+    const result = await response.json()
+
+    if(result.success){
+      console.log(result.message)
+      toast.success(result.message)
     }
-
-    //check if passwords match
-    if(data.password !== data.confirmPassword){
-      setError("Passwords don't match")
+    else{
+      console.log(result.message)
+      toast.error(result.message)
     }
+  }
 
-    
+  catch(err){
+    console.log("Error logging in")
+    toast.error("Error logging in")
+  }
+     
 
   }
 
@@ -72,8 +83,7 @@ return (
               }}
               type="password"/>
 
-              {/* Display error message in a paragraph tag if there is an error */}
-              {error && (<p className=" text-red-800 text-sm">{error}</p>)}
+          
 
               <button type="submit"  className='bg-indigo-600 hover:bg-indigo-700 hover:cursor-pointer text-white font-bold px-4 py-2 transition w-full rounded-md'>
                 Sign In  
@@ -84,6 +94,7 @@ return (
           </div>
 
         </div>
+        <ToastContainer/>
       </div>
     </>
 

@@ -58,8 +58,6 @@ export default function Signup() {
     toast.error("Error creating user ")
   }
     
-
-
     
 
   }
@@ -78,7 +76,7 @@ return (
               We are so excited to have you here. If you haven't already, create an account to get access to exclusive offers, rewards, and discounts.
             </p>
             <button className='bg-white text-indigo-600 hover:bg-gray-100 font-semibold px-5 py-2 rounded-full transition'>
-              Already have an account? <a href="/login">Sign In</a>
+              Already have an account? <a href="/signin">Sign In</a>
             </button>
           </div>
 
