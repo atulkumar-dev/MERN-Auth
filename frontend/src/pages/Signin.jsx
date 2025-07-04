@@ -20,7 +20,6 @@ export default function Signin() {
     event.preventDefault();
 
     try{
-
         const response = await fetch("http://localhost:80/signin", {
             method: "POST",
             headers: {
@@ -44,12 +43,10 @@ export default function Signin() {
   catch(err){
     console.log("Error logging in")
     toast.error("Error logging in")
-  }
-     
+  }  
 
   }
 
-  
 
 return (
      <>
