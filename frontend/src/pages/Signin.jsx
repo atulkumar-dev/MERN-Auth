@@ -38,7 +38,7 @@ export default function Signin() {
       toast.success(result.message)
       localStorage.setItem("email",result.email)
       localStorage.setItem("username",result.username)
-      setTimeout(() => {navigate("/profile");},2000);
+      setTimeout(() => {navigate("/profile");},1000);
 
     }
     else{
