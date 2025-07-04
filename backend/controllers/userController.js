@@ -43,7 +43,7 @@ export async function handleSigninController(req,res){
     
     const result = await bcrypt.compare(password,user.password)
     if(result){
-        res.status(200).json({success:true, message:"Logged in Successfully", email:user.email })
+        res.status(200).json({success:true, message:"Logged in Successfully", email:user.email, username: user.username })
     }
     else{
         res.status(400).json({success:false, message: "Invalid password"})

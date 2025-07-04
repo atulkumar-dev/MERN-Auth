@@ -2,10 +2,13 @@ import { useState } from "react";
 import Input from "../components/Input"
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import {useNavigate} from "react-router";
 
 
 export default function Signin() {
 
+
+  const navigate = useNavigate();
 
   //state to manage user entered data in an object called "data"
   const[data, setData]= useState({
@@ -33,6 +36,10 @@ export default function Signin() {
     if(result.success){
       console.log(result.message)
       toast.success(result.message)
+      localStorage.setItem("email",result.email)
+      localStorage.setItem("username",result.username)
+      setTimeout(() => {navigate("/profile");},2000);
+
     }
     else{
       console.log(result.message)
